@@ -14,7 +14,7 @@ std::vector<std::string> Parser::parse_resp(const std::string& input) {
         case '+':
             return parse_simple(input);
         case '-':
-            // return parse_errors(input);
+            return parse_error(input);
             break;
         case '$':
             // return parse_bulk(input);
@@ -40,5 +40,19 @@ std::vector<std::string> Parser::parse_simple(const std::string& input) {
 
     std::string simple = input.substr(1, end-1);
     result.push_back(simple);
+    return result;
+}
+
+
+std::vector<std::string> Parser::parse_error(const std::string& input) {
+    std::vector<std::string> result;
+    size_t end = input.find("\r\n");
+
+    if(end == std::string::npos) {
+        throw std::runtime_error("Invalid format for Errors. Error should be of format -<error>\\r\\n");
+    }
+
+    std::string error_msg = input.substr(1, end-1);
+    result.push_back(error_msg);
     return result;
 }
