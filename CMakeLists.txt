@@ -4,7 +4,8 @@ project(redis-lite CXX)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Catch2 3 REQUIRED)
+# Find Catch2
+find_package(Catch2 3.8.1 REQUIRED)
 include_directories(/opt/homebrew/Cellar/catch2/3.8.1/include)
 
 # Add the parser library
